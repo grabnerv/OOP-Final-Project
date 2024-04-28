@@ -7,12 +7,14 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Player;
+
 public class GamePanel extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = 1L;
 	final int OGPanelSize = 16;
 	final int scale = 3;
-	final int panelSize = OGPanelSize * scale;
+	public final int panelSize = OGPanelSize * scale;
 	
 	final int screenColumns = 12;
 	final int screenRows = 16;
@@ -20,7 +22,8 @@ public class GamePanel extends JPanel implements Runnable{
 	final int screenHeight = panelSize * screenRows; // 768 pixels
 	
 	Thread gameThread;
-	KeyHandler keyboard = new KeyHandler();
+	KeyHandler keyH = new KeyHandler();
+	Player player = new Player(this,keyH);
 	
 	int playerX = 100;
 	int playerY = 100;
@@ -34,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
-		this.addKeyListener(keyboard);
+		this.addKeyListener(keyH);
 	}
 	
 	public void StartGameThread() {
@@ -76,20 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update() {
-		
-		if(keyboard.up == true) {
-			playerY -= playerSpeed;
-		} 
-		else if(keyboard.down == true) {
-			playerY += playerSpeed;
-		}
-		else if(keyboard.left == true) {
-			playerX -= playerSpeed;
-		}
-		else if(keyboard.right == true) {
-			playerX += playerSpeed;
-		}
-		 
+		 player.update();
 	}
 	
 	public void paintComponent(Graphics g) {	
@@ -98,11 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D graphics = (Graphics2D)g;
 		
-		graphics.setColor(Color.white);
-		
-		graphics.fillRect(playerX, playerY, panelSize, panelSize);
-		
-		
+		player.draw(graphics);
 		
 		graphics.dispose();
 		
