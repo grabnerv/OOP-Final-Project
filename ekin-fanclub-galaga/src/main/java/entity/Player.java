@@ -20,9 +20,9 @@ public class Player extends Entity {
 		this.keyH=keyH;
 		
         solidArea = new Rectangle();
-		solidArea.x = 10;
+		solidArea.x = 30;
 		solidArea.y = 16;
-		solidArea.width = 36;
+		solidArea.width = 30;
 		solidArea.height = 36; //none of these values are final and should be tweaked in debugging
 
 		setDefaultValues();

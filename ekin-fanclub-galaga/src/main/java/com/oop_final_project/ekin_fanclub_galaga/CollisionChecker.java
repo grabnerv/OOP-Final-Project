@@ -27,34 +27,50 @@ public void checkTile(Entity entity) {
     switch(entity.direction) {
         case"up":
         entityTopRow = (entityTopWorldY - entity.speed)/gp.panelSize;
-        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityTopRow];
-        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityTopRow];
-        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
-            entity.collisonON = true;
+        if(entityTopRow< gp.screenRows && entityTopRow > 0) {
+	        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityTopRow];
+	        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityTopRow];
+	        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
+	            entity.collisonON = true;
+	        }
+        } else {
+        	entity.collisonON = true;
         }
         break;
         case "down":
         entityBottomRow = (entityBottomWorldY + entity.speed)/gp.panelSize;
-        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityBottomRow];
-        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityBottomRow];
-        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
-            entity.collisonON = true;
+        if(entityBottomRow< gp.screenRows && entityBottomRow > 0) {
+	        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityBottomRow];
+	        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityBottomRow];
+	        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
+	            entity.collisonON = true;
+	        }
+        } else {
+        	entity.collisonON = true;
         }
         break;
         case "left":
         entityLeftCol = (entityLeftWorldX - entity.speed)/gp.panelSize;
-        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityTopRow];
-        panelNum2 = gp.tileM.mapTileNum[entityLeftCol] [entityBottomRow];
-        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
-            entity.collisonON = true;
+        if(entityLeftCol< gp.screenColumns && entityLeftCol > 0) {
+	        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityTopRow];
+	        panelNum2 = gp.tileM.mapTileNum[entityLeftCol] [entityBottomRow];
+	        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
+	            entity.collisonON = true;
+	        }
+        } else {
+        	entity.collisonON = true;
         }
         break;
         case "right":
         entityRightCol = (entityRightWorldX + entity.speed)/gp.panelSize;
-        panelNum1 = gp.tileM.mapTileNum[entityRightCol] [entityTopRow];
-        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityBottomRow];
-        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
-            entity.collisonON = true;
+        if(entityRightCol< gp.screenColumns && entityRightCol > 0) {
+        	 panelNum1 = gp.tileM.mapTileNum[entityRightCol] [entityTopRow];
+             panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityBottomRow];
+             if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
+                 entity.collisonON = true;
+             }
+        } else {
+        	entity.collisonON = true;
         }
         break;
     }
