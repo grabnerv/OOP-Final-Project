@@ -45,24 +45,20 @@ public class Player extends Entity {
 		}
 	}
 	public void update() {
-		
-		if(keyH.up == true || keyH.down == true || keyH.left == true || keyH.right == true) { // makes character not animated while in place if update code is placed in here
-			
-		}
-		if(keyH.up == true) {
+	
+		if(keyH.up) {
 			direction = "up";
-			
 		} 
-		else if(keyH.down == true) {
+		else if(keyH.down) {
 			direction = "down";
-			
 		}
-		else if(keyH.left == true) {
+		else if(keyH.left) {
 			direction = "left";
-			
 		}
-		else if(keyH.right == true) {
+		else if(keyH.right) {
 			direction = "right";
+		} else {
+			direction = "";
 		}
 		
         collisonON = false;
