@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -18,6 +19,12 @@ public class Player extends Entity {
 		this.gp=gp;
 		this.keyH=keyH;
 		
+        solidArea = new Rectangle();
+		solidArea.x = 10;
+		solidArea.y = 16;
+		solidArea.width = 36;
+		solidArea.height = 36; //none of these values are final and should be tweaked in debugging
+
 		setDefaultValues();
 		getPlayerImage();
 	}
@@ -30,9 +37,9 @@ public class Player extends Entity {
 	
 	public void getPlayerImage() {
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_img1.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/player_img2.png"));
-			explode = ImageIO.read(getClass().getResourceAsStream("/player/player_img3.png"));
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/galaga_v2.png"));
+			down1 = ImageIO.read(getClass().getResourceAsStream("/player/galaga_v2.png")); //placeholder until more fitting sprite is made
+			explode = ImageIO.read(getClass().getResourceAsStream("/player/galaga_v2.png")); //placeholder until more fitting sprite is made
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -44,21 +51,40 @@ public class Player extends Entity {
 		}
 		if(keyH.up == true) {
 			direction = "up";
-			y -= speed;
+			
 		} 
 		else if(keyH.down == true) {
 			direction = "down";
-			y += speed;
+			
 		}
 		else if(keyH.left == true) {
 			direction = "left";
-			x -= speed;
+			
 		}
 		else if(keyH.right == true) {
 			direction = "right";
-			x += speed;
 		}
 		
+        collisonON = false;
+		gp.cChecker.checkTile(this);
+
+		if(collisonON == false) {
+			switch(direction) {
+				case"up":
+				y -= speed;
+					break;
+				case "down":
+				y += speed;
+					break;
+				case "left":
+				x -= speed;
+					break;
+				case "right":
+				x += speed;
+					break;
+			}
+		}
+
 		spriteCounter++;
 		if(spriteCounter>10) {
 			if(spriteNum == 1) {
