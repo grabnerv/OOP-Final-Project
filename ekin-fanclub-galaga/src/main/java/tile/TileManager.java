@@ -31,7 +31,7 @@ public class TileManager {
 			
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/enemies/boss_enemy.png"));
-			tile[1].collision = true;
+			tile[1].collision = true; //this is an example of how collision is made and is temporary
 
 		}catch(IOException e) {
 			e.printStackTrace();
