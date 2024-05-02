@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -28,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Player player = new Player(this,keyH);
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	int FPS = 60;
+	public SuperObject obj[] = new SuperObject[10]; // can display up to 10 objects at same time, might change
 	
 	public int gameState;
 	public final int playState = 1;
