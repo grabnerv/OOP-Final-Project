@@ -20,10 +20,12 @@ public class Player extends Entity {
 		this.keyH=keyH;
 		
         solidArea = new Rectangle();
-		solidArea.x = 30;
+		solidArea.x = 1;
 		solidArea.y = 16;
-		solidArea.width = 30;
-		solidArea.height = 36; //none of these values are final and should be tweaked in debugging
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
+		solidArea.width = 16;
+		solidArea.height = 32; //none of these values are final and should be tweaked in debugging
 
 		setDefaultValues();
 		getPlayerImage();
@@ -61,8 +63,15 @@ public class Player extends Entity {
 			direction = "";
 		}
 		
+		
+		//check tile collision
         collisonON = false;
 		gp.cChecker.checkTile(this);
+		
+		//check object collision
+		int objIndex = gp.cChecker.checkObject(this, true);
+		pickUpObject(objIndex);
+		
 
 		if(collisonON == false) {
 			switch(direction) {
@@ -91,6 +100,14 @@ public class Player extends Entity {
 			spriteCounter=0;
 		}
 	}
+	
+	public void pickUpObject(int i) { // I don't think this is necessary 
+		
+		if(i != 999) {
+		//	gp.obj[i] = null;
+		}
+	}
+	
 	public void draw(Graphics2D graphics) {
 //		graphics.setColor(Color.white);
 //		graphics.fillRect(x, y, gp.panelSize, gp.panelSize);

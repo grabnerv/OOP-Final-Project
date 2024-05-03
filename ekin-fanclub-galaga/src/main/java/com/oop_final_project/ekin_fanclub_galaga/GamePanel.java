@@ -29,7 +29,8 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	TileManager tileM = new TileManager(this);
 	KeyHandler keyH = new KeyHandler(this);
-	Player player = new Player(this,keyH);
+	public Player player = new Player(this,keyH);
+	public AssetSetter aSetter = new AssetSetter(this);
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	int FPS = 60;
 	public SuperObject obj[] = new SuperObject[10]; // can display up to 10 objects at same time, might change
@@ -72,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 
 	public void setupGame() {
+		aSetter.setObject();
 		gameState = titleState; //this is what starts the game now
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -130,27 +132,29 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void paintComponent(Graphics g) {	
 		
-		super.paintComponent(g);
-		Graphics2D graphics = (Graphics2D)g;
-		tileM.draw(graphics);
-		player.draw(graphics);
-		
-		if (gameState == titleState) {
-			for(Button button : buttons) {
-				button.draw(graphics);
+			super.paintComponent(g);
+			Graphics2D graphics = (Graphics2D)g;
+			// tiles
+			tileM.draw(graphics);
+			
+			//object
+			for(int i = 0; i < obj.length; i++) {
+				if(obj[i] != null) {
+					obj[i].draw(graphics, this);
+				}
 			}
-		}
+			
+			//player
+			player.draw(graphics);
 		
-		
-		
-		
+			if (gameState == titleState) {
+				for(Button button : buttons) {
+					button.draw(graphics);
+				}
+			}
 		
 		}
 		
 		
 	}
-	
-	
-	
-	
 
