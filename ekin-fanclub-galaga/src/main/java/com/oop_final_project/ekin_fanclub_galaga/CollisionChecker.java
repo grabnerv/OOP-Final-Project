@@ -1,5 +1,7 @@
 package com.oop_final_project.ekin_fanclub_galaga;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 
 public class CollisionChecker {
@@ -27,7 +29,7 @@ public class CollisionChecker {
 	    switch(entity.direction) {
 	        case"up":
 	        entityTopRow = (entityTopWorldY - entity.speed)/gp.panelSize;
-	        if(entityTopRow< gp.screenRows && entityTopRow > 0) {
+	        if(entityTopRow< gp.screenRows && entity.y >-4) {
 		        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityTopRow];
 		        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityTopRow];
 		        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
@@ -39,7 +41,7 @@ public class CollisionChecker {
 	        break;
 	        case "down":
 	        entityBottomRow = (entityBottomWorldY + entity.speed)/gp.panelSize;
-	        if(entityBottomRow< gp.screenRows && entityBottomRow > 0) {
+	        if(entityBottomRow< gp.screenRows && entity.y >-4) {
 		        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityBottomRow];
 		        panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityBottomRow];
 		        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
@@ -51,10 +53,10 @@ public class CollisionChecker {
 	        break;
 	        case "left":
 	        entityLeftCol = (entityLeftWorldX - entity.speed)/gp.panelSize;
-	        if(entityLeftCol< gp.screenColumns && entityLeftCol > 0) {
+	        if(entityLeftCol< gp.screenColumns && entity.x>-4) {
 		        panelNum1 = gp.tileM.mapTileNum[entityLeftCol] [entityTopRow];
 		        panelNum2 = gp.tileM.mapTileNum[entityLeftCol] [entityBottomRow];
-		        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
+		        if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true || gp.tileM.tile[panelNum1] == null || gp.tileM.tile[panelNum2] == null) {
 		            entity.collisonON = true;
 		        }
 	        } else {
@@ -63,7 +65,7 @@ public class CollisionChecker {
 	        break;
 	        case "right":
 	        entityRightCol = (entityRightWorldX + entity.speed)/gp.panelSize;
-	        if(entityRightCol< gp.screenColumns && entityRightCol > 0) {
+	        if(entityRightCol< gp.screenColumns && entityRightCol >= 0) {
 	        	 panelNum1 = gp.tileM.mapTileNum[entityRightCol] [entityTopRow];
 	             panelNum2 = gp.tileM.mapTileNum[entityRightCol] [entityBottomRow];
 	             if(gp.tileM.tile[panelNum1].collision == true || gp.tileM.tile[panelNum2].collision == true) {
@@ -91,12 +93,15 @@ public class CollisionChecker {
 				switch(entity.direction) {
 				case "up":
 					entity.solidArea.y -= entity.speed;
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
+					if(gp.obj[i].solidArea.contains(entity.solidArea)) {
 						if(gp.obj[i].collision == true) {
 							//entity.collisonON = true;
-							System.out.println("Colliding up");
-							System.out.println("Entity solid area:"+entity.solidArea);
-							System.out.println("Object solid area:"+gp.obj[i].solidArea);
+//							System.out.println("Colliding up");
+//							System.out.println("Entity solid area:"+entity.solidArea);
+//							System.out.println("Object solid area:"+gp.obj[i].solidArea);
+//							System.out.println("X,Y coords: "+ gp.obj[i].worldX + " "+ gp.obj[i].worldY);
+//							Rectangle intersection = entity.solidArea.intersection(gp.obj[i].solidArea);
+//							System.out.println("Intersection:"+intersection);
 						}
 						if(player == true) {
 							index = i;
@@ -108,7 +113,7 @@ public class CollisionChecker {
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
 						if(gp.obj[i].collision == true) {
 							//entity.collisonON = true;
-							System.out.println("Colliding down");
+							//System.out.println("Colliding down");
 						}
 						if(player == true) {
 							index = i;
@@ -119,7 +124,7 @@ public class CollisionChecker {
 					entity.solidArea.x -= entity.speed;
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
 						if(gp.obj[i].collision == true) {
-							System.out.println("Colliding left");
+							//System.out.println("Colliding left");
 							//entity.collisonON = true;
 						}
 						if(player == true) {
@@ -132,7 +137,7 @@ public class CollisionChecker {
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
 						if(gp.obj[i].collision == true) {
 							//entity.collisonON = true;
-							System.out.println("Colliding right");
+							//System.out.println("Colliding right");
 						}
 						if(player == true) {
 							index = i;
