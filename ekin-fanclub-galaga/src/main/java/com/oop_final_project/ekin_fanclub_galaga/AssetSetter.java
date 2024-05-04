@@ -13,8 +13,8 @@ public class AssetSetter {
 	public void setObject() {
 		
 		gp.obj[0] = new OBJ_Key();
-		gp.obj[0].worldX = 5 * gp.panelSize;
-		gp.obj[0].worldY = 5 *gp.panelSize;
+		gp.obj[0].worldX = 9 * gp.panelSize;
+		gp.obj[0].worldY = 6 *gp.panelSize;
 		
 //		gp.obj[1] = new OBJ_Key();
 //		gp.obj[1].worldX = 5* gp.panelSize;

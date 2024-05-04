@@ -104,7 +104,16 @@ public class Player extends Entity {
 	public void pickUpObject(int i) { // I don't think this is necessary 
 		
 		if(i != 999) {
-		//	gp.obj[i] = null;
+			String objectName = gp.obj[i].name;
+			
+			switch(objectName) {
+			case "Key":
+				gp.obj[i] = null;
+				break;
+			case "Something else":
+				
+				break;
+			}
 		}
 	}
 	
