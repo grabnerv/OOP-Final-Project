@@ -1,13 +1,11 @@
 package entity;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
 import com.oop_final_project.ekin_fanclub_galaga.KeyHandler;
 import com.oop_final_project.ekin_fanclub_galaga.UtilityTool;
@@ -56,6 +54,17 @@ public class Player extends Entity {
 		}
 		return image;
 	}
+
+public void saveModifiedImage(BufferedImage image, String savePath) {
+    try {
+        File outputFile = new File(savePath);
+        ImageIO.write(image, "PNG", outputFile);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+
 	public void update() {
 	
 		if(keyH.up) {

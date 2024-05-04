@@ -1,5 +1,4 @@
 package com.oop_final_project.ekin_fanclub_galaga;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import com.Button;
+import com.oop_final_project.ColorButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -37,10 +38,15 @@ public class GamePanel extends JPanel implements Runnable{
 	int FPS = 60;
 	public SuperObject obj[] = new SuperObject[10]; // can display up to 10 objects at same time, might change
 	List<Button> buttons = new ArrayList<>();
+	List<ColorButton> colorButtons = new ArrayList<>();
+	Color selectedColor = Color.WHITE;
+
+
 	public int gameState;
 	public final int titleState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
+	public final int customState = 3;
 	
 	
 	public GamePanel() {
@@ -52,7 +58,11 @@ public class GamePanel extends JPanel implements Runnable{
 		this.addKeyListener(keyH);
 		buttons.add(new Button(200, 300, 200, 50, "Start Game"));
         buttons.add(new Button(200, 400, 200, 50, "Exit Game"));
-
+		buttons.add(new Button(200, 500, 200, 50, "Colorcustom"  ));
+		colorButtons.add(new ColorButton(100, 100, 50, 50, "Red", Color.RED));
+		colorButtons.add(new ColorButton(100, 160, 50, 50, "Blue", Color.BLUE));
+		colorButtons.add(new ColorButton(100, 220, 50, 50, "Green", Color.GREEN));
+	
 		addMouseListener(new MouseAdapter() {
 			@Override
             public void mouseClicked(MouseEvent e) {
@@ -63,11 +73,24 @@ public class GamePanel extends JPanel implements Runnable{
                     if (button.isMouseOver(mx, my)) {
                         if (button.label.equals("Start Game")) {
                             gameState = playState;
-                        } else if (button.label.equals("Exit Game") && (gameState == titleState) ) {
+                        } if (button.label.equals("Colorcustom")) {
+							gameState = customState;
+							
+						}
+						 else if (button.label.equals("Exit Game") && (gameState == titleState) ) {
                             System.exit(0); // Exit the game
                         }
+						 
+					
                     }
                 }
+				for(ColorButton button: colorButtons) {
+					if (button.isMouseOver(mx, my) && gameState == customState) {
+						selectedColor = button.getColor();
+						gameState = titleState;
+						
+					}
+				}
             }
 		});
 
@@ -155,9 +178,13 @@ public class GamePanel extends JPanel implements Runnable{
 			if (gameState == titleState) {
 				ui.draw(graphics);
 									}
+			if (gameState == customState) {
+				for (ColorButton button : colorButtons) {
+					button.draw(graphics);
+			}
 		
 		}
 		
 		
 	}
-
+}

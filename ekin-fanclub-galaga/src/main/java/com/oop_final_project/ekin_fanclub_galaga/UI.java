@@ -30,6 +30,9 @@ public class UI {
         arial_80B = new Font("Arial", Font.BOLD, 40);
         buttons.add(new Button(200, 300, 200, 50, "Start Game"));
         buttons.add(new Button(200, 400, 200, 50, "Exit Game"));
+        buttons.add(new Button(200, 500, 200, 50, "Colorcustom"  ));
+
+
     }
 
     public void showMessage(String text) {
