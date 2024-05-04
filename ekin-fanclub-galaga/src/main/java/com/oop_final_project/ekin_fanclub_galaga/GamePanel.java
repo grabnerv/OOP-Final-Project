@@ -50,8 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
 		this.addKeyListener(keyH);
-		buttons.add(new Button(100, 100, 200, 50, "Start Game"));
-        buttons.add(new Button(100, 200, 200, 50, "Exit Game"));
+		buttons.add(new Button(200, 300, 200, 50, "Start Game"));
+        buttons.add(new Button(200, 400, 200, 50, "Exit Game"));
 
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
                     if (button.isMouseOver(mx, my)) {
                         if (button.label.equals("Start Game")) {
                             gameState = playState;
-                        } else if (button.label.equals("Exit Game") && (gameState == playState) ) {
+                        } else if (button.label.equals("Exit Game") && (gameState == titleState) ) {
                             System.exit(0); // Exit the game
                         }
                     }
@@ -136,9 +136,9 @@ public class GamePanel extends JPanel implements Runnable{
 		
 			super.paintComponent(g);
 			Graphics2D graphics = (Graphics2D)g;
+			if (gameState == playState || gameState == pauseState) {
 			// tiles
 			tileM.draw(graphics);
-			
 			//object
 			for(int i = 0; i < obj.length; i++) {
 				if(obj[i] != null) {
@@ -148,7 +148,7 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			//player
 			player.draw(graphics);
-			
+		}
 			//ui
 			
 		

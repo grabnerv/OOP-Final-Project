@@ -28,8 +28,8 @@ public class UI {
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 40);
-        buttons.add(new Button(100, 100, 200, 50, "Start Game"));
-        buttons.add(new Button(100, 200, 200, 50, "Exit Game"));
+        buttons.add(new Button(200, 300, 200, 50, "Start Game"));
+        buttons.add(new Button(200, 400, 200, 50, "Exit Game"));
     }
 
     public void showMessage(String text) {
@@ -66,7 +66,7 @@ public class UI {
         g2.setFont(arial_80B); // Set the font to something larger for the title
         g2.setColor(Color.white);
         int x = getXforCenteredText(title);
-        int y = gp.screenHeight / 2; // Center vertically, adjust as needed
+        int y = 250; // Center vertically, adjust as needed
         g2.drawString(title, x, y);
         
     } 
