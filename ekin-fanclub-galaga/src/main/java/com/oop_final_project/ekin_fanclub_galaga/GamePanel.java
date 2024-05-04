@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
                     if (button.isMouseOver(mx, my)) {
                         if (button.label.equals("Start Game")) {
                             gameState = playState;
-                        } else if (button.label.equals("Exit Game")) {
+                        } else if (button.label.equals("Exit Game") && (gameState == playState) ) {
                             System.exit(0); // Exit the game
                         }
                     }
@@ -150,13 +150,11 @@ public class GamePanel extends JPanel implements Runnable{
 			player.draw(graphics);
 			
 			//ui
-			ui.draw(graphics);
+			
 		
 			if (gameState == titleState) {
-				for(Button button : buttons) {
-					button.draw(graphics);
-				}
-			}
+				ui.draw(graphics);
+									}
 		
 		}
 		
