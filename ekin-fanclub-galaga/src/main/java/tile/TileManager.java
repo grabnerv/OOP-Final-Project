@@ -27,8 +27,11 @@ public class TileManager {
 	}
 	
 	public void getTileImage() {
-		setup(0,"spaceTile",false);
-		setup(1,"boss_enemy",true);
+		setup(0,"YellowStars2",false);
+		setup(1,"rockTile",true);
+		setup(2,"YellowStars2",false);
+		setup(3,"YellowStars1",false);
+		setup(4,"Saturn",false);
 	}
 	
 	public void setup(int index, String imageName, boolean collision) {
