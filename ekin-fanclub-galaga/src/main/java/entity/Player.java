@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
 import com.oop_final_project.ekin_fanclub_galaga.KeyHandler;
+import com.oop_final_project.ekin_fanclub_galaga.UtilityTool;
 
 public class Player extends Entity {
 	
@@ -38,13 +39,22 @@ public class Player extends Entity {
 	}
 	
 	public void getPlayerImage() {
+		up1 = setup("galaga_v2");
+		down1 = setup("galaga_v2");
+		explode = setup("galaga_v2");
+	}
+	
+	public BufferedImage setup(String imageName) {
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
+		
 		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/galaga_v2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/galaga_v2.png")); //placeholder until more fitting sprite is made
-			explode = ImageIO.read(getClass().getResourceAsStream("/player/galaga_v2.png")); //placeholder until more fitting sprite is made
-		} catch(IOException e) {
+			image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+			image = uTool.scaleImage(image, gp.panelSize,gp.panelSize);
+		} catch(IOException e){
 			e.printStackTrace();
 		}
+		return image;
 	}
 	public void update() {
 	
@@ -144,6 +154,6 @@ public class Player extends Entity {
 				image=down1;
 			}
 		}
-		graphics.drawImage(image, x, y, gp.panelSize, gp.panelSize,null);
+		graphics.drawImage(image, x, y,null);
 	}
 }

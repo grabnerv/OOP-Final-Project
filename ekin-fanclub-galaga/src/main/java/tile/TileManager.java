@@ -1,6 +1,7 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,7 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
+import com.oop_final_project.ekin_fanclub_galaga.UtilityTool;
 
 public class TileManager {
 	GamePanel gp;
@@ -25,15 +27,20 @@ public class TileManager {
 	}
 	
 	public void getTileImage() {
+		setup(0,"spaceTile",false);
+		setup(1,"boss_enemy",true);
+	}
+	
+	public void setup(int index, String imageName, boolean collision) {
+		
+		UtilityTool uTool = new UtilityTool();
+		
 		try {
-			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/spaceTile.png"));
-			
-			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/enemies/boss_enemy.png"));
-			tile[1].collision = true; //this is an example of how collision is made and is temporary
-
-		}catch(IOException e) {
+			tile[index] = new Tile();
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+imageName+".png"));
+			tile[index].image = uTool.scaleImage(tile[index].image, gp.panelSize, gp.panelSize);
+			tile[index].collision = collision;
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -82,7 +89,7 @@ public class TileManager {
 		
 		while(col<gp.screenColumns && row < gp.screenRows) {
 			int tileNum = mapTileNum[col][row];
-			graphics.drawImage(tile[tileNum].image, x,y,gp.panelSize,gp.panelSize,null);
+			graphics.drawImage(tile[tileNum].image, x,y,null);
 			col++;
 			x += gp.panelSize;
 			

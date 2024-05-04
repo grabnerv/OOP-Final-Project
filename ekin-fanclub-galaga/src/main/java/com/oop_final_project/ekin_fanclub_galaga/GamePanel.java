@@ -32,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public Player player = new Player(this,keyH);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public CollisionChecker cChecker = new CollisionChecker(this);
+	public UI ui = new UI(this);
+	
 	int FPS = 60;
 	public SuperObject obj[] = new SuperObject[10]; // can display up to 10 objects at same time, might change
 	List<Button> buttons = new ArrayList<>();
@@ -146,6 +148,9 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			//player
 			player.draw(graphics);
+			
+			//ui
+			ui.draw(graphics);
 		
 			if (gameState == titleState) {
 				for(Button button : buttons) {
