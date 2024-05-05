@@ -30,8 +30,8 @@ public class Player extends Entity {
 		getPlayerImage();
 	}
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
+		x = 5*gp.panelSize + gp.panelSize/2;
+		y = 12*gp.panelSize;
 		speed = 4;
 		direction = "down";
 	}

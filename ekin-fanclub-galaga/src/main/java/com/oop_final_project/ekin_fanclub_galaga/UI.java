@@ -12,7 +12,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font arial_40, arial_80B;
+    Font arial_40, arial_80B, funfont_80B;
 
     public boolean messageOn = false;
     public String message = "";
@@ -28,9 +28,10 @@ public class UI {
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 40);
-        buttons.add(new Button(200, 300, 200, 50, "Start Game"));
-        buttons.add(new Button(200, 400, 200, 50, "Exit Game"));
-        buttons.add(new Button(200, 500, 200, 50, "Colorcustom"  ));
+        funfont_80B = new Font("American Typewriter", Font.BOLD, 80);
+        buttons.add(new Button(160, 300, 250, 50, "Start Game"));
+        buttons.add(new Button(160, 400, 250, 50, " Exit Game"));
+        buttons.add(new Button(120, 500, 350, 50, "Color Customizer"));
 
 
     }
@@ -45,12 +46,12 @@ public class UI {
 
         g2.setFont(arial_40);
         g2.setColor(Color.white);
-
+        Color darkBlue = new Color(9,18,68);
         for (Button button : buttons) {
-            g2.setColor(Color.LIGHT_GRAY);
+            g2.setColor(darkBlue);
             g2.fillRect(button.x, button.y, button.width, button.height);
             g2.setColor(Color.BLACK);
-            g2.drawString(button.label, button.x + 20, button.y + 30); // we can adjust later.
+            g2.drawString(button.label, button.x + 20, button.y + 40); // we can adjust later.
         }
 
         if(gp.gameState == gp.titleState) {
@@ -75,13 +76,14 @@ public class UI {
     } 
     public void drawPauseScreen() {
 
-        String text = "HOLD UP";
+        String text = "PAUSED";
         int x;
-
+        g2.setFont(funfont_80B);
+        g2.setColor(Color.BLUE);
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         x = gp.screenWidth/2 - length/2;
 
-        int y = gp.screenHeight/2;
+        int y = gp.screenHeight/2 - 150;
 
         g2.drawString(text, x, y);
 

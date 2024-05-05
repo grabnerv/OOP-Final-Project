@@ -77,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable{
 							gameState = customState;
 							
 						}
-						 else if (button.label.equals("Exit Game") && (gameState == titleState) ) {
+						 else if (button.label.equals("Exit Game") && (gameState == titleState || gameState == pauseState) ) {
                             System.exit(0); // Exit the game
                         }
 						 
@@ -175,7 +175,7 @@ public class GamePanel extends JPanel implements Runnable{
 			//ui
 			
 		
-			if (gameState == titleState) {
+			if (gameState == titleState || gameState == pauseState) {
 				ui.draw(graphics);
 									}
 			if (gameState == customState) {
