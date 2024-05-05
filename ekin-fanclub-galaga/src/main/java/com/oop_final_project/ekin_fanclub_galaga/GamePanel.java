@@ -1,4 +1,5 @@
 package com.oop_final_project.ekin_fanclub_galaga;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -21,7 +22,6 @@ public class GamePanel extends JPanel implements Runnable{
 	final int OGPanelSize = 16;
 	final int scale = 3;
 	public final int panelSize = OGPanelSize * scale;
-	
 	public final int screenColumns = 12;
 	public final int screenRows = 16;
 	public final int screenWidth = panelSize * screenColumns; // 576 pixels
@@ -59,9 +59,11 @@ public class GamePanel extends JPanel implements Runnable{
 		buttons.add(new Button(200, 300, 200, 50, "Start Game"));
         buttons.add(new Button(200, 400, 200, 50, "Exit Game"));
 		buttons.add(new Button(200, 500, 200, 50, "Colorcustom"  ));
-		colorButtons.add(new ColorButton(100, 100, 50, 50, "Red", Color.RED));
+		colorButtons.add(new ColorButton(100, 100, 50, 50, "Yellow", Color.YELLOW));
 		colorButtons.add(new ColorButton(100, 160, 50, 50, "Blue", Color.BLUE));
 		colorButtons.add(new ColorButton(100, 220, 50, 50, "Green", Color.GREEN));
+		colorButtons.add(new ColorButton(100, 280, 50, 50, "Barbie", Color.PINK));
+		colorButtons.add(new ColorButton(100, 340, 50, 50, "Orange", Color.ORANGE));
 	
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -86,7 +88,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
 				for(ColorButton button: colorButtons) {
 					if (button.isMouseOver(mx, my) && gameState == customState) {
-						selectedColor = button.getColor();
+						BufferedImage newShipImage = colorizeShip(player.up1, button.getColor());
+						player.up1 = newShipImage;
+						player.down1 = newShipImage;
+						player.explode = newShipImage;
 						gameState = titleState;
 						
 					}
@@ -187,4 +192,20 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		
 	}
+
+	public BufferedImage colorizeShip(BufferedImage originalImage, Color newColor) {
+		int width = originalImage.getWidth();
+		int height = originalImage.getHeight();
+		BufferedImage coloredImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = coloredImage.createGraphics();
+		
+		g2d.drawImage(originalImage, 0, 0, null);
+		g2d.setComposite(AlphaComposite.SrcAtop);
+		g2d.setColor(newColor);
+		g2d.fillRect(0, 0, width, height);
+		g2d.dispose();
+		
+		return coloredImage;
+	}
+		
 }

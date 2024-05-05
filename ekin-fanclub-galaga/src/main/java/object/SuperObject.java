@@ -2,7 +2,6 @@ package object;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
 import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
 import com.oop_final_project.ekin_fanclub_galaga.UtilityTool;
 
