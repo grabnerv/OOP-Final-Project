@@ -166,6 +166,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		if(gameState == playState) {
            player.update();
+           checkMonsterCollision(player);
 		}
 		 if(gameState == pauseState) {
 
@@ -266,7 +267,9 @@ public class GamePanel extends JPanel implements Runnable{
 		Rectangle playerBounds = new Rectangle(player.x, player.y, player.solidArea.width, player.solidArea.height);
         for (int i = 0; i < enemy.length; i++) {
             if (enemy[i] != null && playerBounds.intersects(enemy[i].solidArea)) {
-            	 return true; //Collision detected
+            	System.out.println("true");
+            	player.takeDamage(1);
+            	return true; //Collision detected
             }
         }
         return false;
