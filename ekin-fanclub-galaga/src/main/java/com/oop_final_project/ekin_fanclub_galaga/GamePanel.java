@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -119,7 +120,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start();
 		aSetter.setEnemy();
-		
 	}
 	
 	public void StartGameThread() { //This might need to be deleted, unused
@@ -211,17 +211,14 @@ public class GamePanel extends JPanel implements Runnable{
 			//ui
 
 			if (gameState == titleState || gameState == pauseState || gameState == playState) {
-				ui.draw(graphics);
-									
+				ui.draw(graphics);					
+			} 
 			if (gameState == customState) {
 				for (ColorButton button : colorButtons) {
 					button.draw(graphics);
 			}
-		
-			}
-			}
-		
-		
+				
+		}
 	}
 
 	
@@ -264,5 +261,14 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		return coloredImage;
 	}
-		
+	
+	public boolean checkMonsterCollision(Player player) {
+		Rectangle playerBounds = new Rectangle(player.x, player.y, player.solidArea.width, player.solidArea.height);
+        for (int i = 0; i < enemy.length; i++) {
+            if (enemy[i] != null && playerBounds.intersects(enemy[i].solidArea)) {
+            	 return true; //Collision detected
+            }
+        }
+        return false;
+	}
 }
