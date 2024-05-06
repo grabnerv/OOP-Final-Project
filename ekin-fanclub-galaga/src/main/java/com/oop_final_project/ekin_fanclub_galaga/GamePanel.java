@@ -5,12 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import javax.swing.JPanel;
 import com.Button;
 import com.oop_final_project.ColorButton;
+
+import enemy.HordeEnemy;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -30,10 +37,12 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	TileManager tileM = new TileManager(this);
 	KeyHandler keyH = new KeyHandler(this);
-	public Player player = new Player(this,keyH);
+	public Player player = new Player(this, keyH);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public UI ui = new UI(this);
+	public String direction;
+	public int actionTimer = 0;
 	
 	int FPS = 60;
 	public SuperObject obj[] = new SuperObject[10]; // can display up to 10 objects at same time, might change
@@ -47,6 +56,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int playState = 1;
 	public final int pauseState = 2;
 	public final int customState = 3;
+	
+	public HordeEnemy enemy[] = new HordeEnemy[5];
 	
 	
 	public GamePanel() {
@@ -102,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameState = titleState; //this is what starts the game now
 		gameThread = new Thread(this);
 		gameThread.start();
+		aSetter.setEnemy();
 		
 	}
 	
@@ -160,21 +172,38 @@ public class GamePanel extends JPanel implements Runnable{
 			super.paintComponent(g);
 			Graphics2D graphics = (Graphics2D)g;
 			if (gameState == playState || gameState == pauseState) {
-			// tiles
-			tileM.draw(graphics);
-			//object
-			for(int i = 0; i < obj.length; i++) {
-				if(obj[i] != null) {
-					obj[i].draw(graphics, this);
+				// tiles
+				tileM.draw(graphics);
+				//object
+				for(int i = 0; i < obj.length; i++) {
+					if(obj[i] != null) {
+						obj[i].draw(graphics, this);
+					}
+				}
+				
+				for(int i = 0; i < enemy.length; i ++) {
+					if(enemy[i] != null) {
+						enemy[i].draw(graphics, this);
+						String currentDirection = setAction();
+						
+						
+						if(currentDirection == "right") {
+							enemy[i].worldX --;
+							
+						} else if(currentDirection == "left") {
+							enemy[i].worldX ++;
+							
+						}
+
+					}
+
 				}
 			}
+				
+				//player
+				player.draw(graphics);
 			
-			//player
-			player.draw(graphics);
-		}
 			//ui
-			
-		
 			if (gameState == titleState || gameState == pauseState) {
 				ui.draw(graphics);
 									}
@@ -185,6 +214,32 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		}
 		
+		
+	}
+	
+	public String setAction() {
+		
+		actionTimer ++;
+		if(actionTimer == 600 || direction == null) {
+			
+			Random random = new Random();
+			
+			int actionDecider = random.nextInt(100) + 1;
+			
+			if(direction == "right") {
+				System.out.println("2");
+				direction = "left";
+				actionTimer = 0;
+				
+			} else if (direction == "left" || direction == null){
+				System.out.println("3");
+				direction = "right";
+				actionTimer = 0;
+			}
+
+		}
+
+		return direction;
 		
 	}
 }
