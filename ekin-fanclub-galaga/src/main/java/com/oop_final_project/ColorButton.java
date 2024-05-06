@@ -1,8 +1,6 @@
 package com.oop_final_project;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import com.Button;
 
 public class ColorButton extends Button {

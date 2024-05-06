@@ -22,7 +22,7 @@ public class Entity {
 	public Rectangle solidArea;
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisonON = false;
-	
+
 	public Entity(GamePanel gp) {
 		this.gp = gp;
 	}
@@ -33,4 +33,10 @@ public class Entity {
 			int screenY = worldY;
 			g2.drawImage(up1, screenX, screenY, gp.panelSize, gp.panelSize, null);
 		}
+
+	//Character Status
+	public int maxLife;
+	public int life;
+	//These two ints will be shared by player and monsters
 }
+

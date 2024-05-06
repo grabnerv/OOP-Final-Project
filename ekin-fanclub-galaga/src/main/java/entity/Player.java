@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.awt.AlphaComposite;
 import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
 import com.oop_final_project.ekin_fanclub_galaga.KeyHandler;
 import com.oop_final_project.ekin_fanclub_galaga.UtilityTool;
@@ -38,6 +39,12 @@ public class Player extends Entity {
 		y = 12 * gp.panelSize;
 		speed = 4;
 		direction = "down";
+		
+		//Player status
+		maxLife = 6;
+		life = maxLife;
+		
+		
 	}
 
 	public void getPlayerImage() {
@@ -67,6 +74,7 @@ public class Player extends Entity {
 			e.printStackTrace();
 		}
 	}
+
 
 	public void update() {
 
