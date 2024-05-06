@@ -17,6 +17,7 @@ public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
 
+
 	public Player(GamePanel gp, KeyHandler keyH) {
 		super(gp);
 		this.gp = gp;
@@ -79,7 +80,9 @@ public class Player extends Entity {
 
 
 	public void update() {
-
+		//this if is new might have to delete
+		if (gp.gameState == gp.playState) {
+			direction = ""; //Reset direction
 		if (keyH.up) {
 			direction = "up";
 		} else if (keyH.down) {
@@ -91,7 +94,13 @@ public class Player extends Entity {
 		} else {
 			direction = "";
 		}
+		}
 
+		//check for monster collision
+		//this is new might delete
+		if(gp.checkMonsterCollision(this)) {
+			takeDamage(1);
+		}
 		// check tile collision
 		collisonON = false;
 		gp.cChecker.checkTile(this);
@@ -99,6 +108,7 @@ public class Player extends Entity {
 		// check object collision
 		int objIndex = gp.cChecker.checkObject(this, true);
 		pickUpObject(objIndex);
+		
 
 		if (collisonON == false) {
 			switch (direction) {
@@ -120,6 +130,7 @@ public class Player extends Entity {
 				break;
 			}
 		}
+		
 
 		spriteCounter++;
 		if (spriteCounter > 10) {
@@ -180,4 +191,16 @@ public class Player extends Entity {
 		}
 		graphics.drawImage(image, x, y, null);
 	}
+	//This should cause the player to take damage
+	public void takeDamage(int damage) {
+        life -= damage;
+        if (life <= 0) {
+            // Player's dead, implement game over or respawn
+            // reset player's position for now 
+            x = 5 * gp.panelSize + gp.panelSize / 2;
+            y = 12 * gp.panelSize;
+            life = maxLife; // Reset player's life
+        }
+    }
+
 }

@@ -62,10 +62,10 @@ public class UI {
         if(gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
-
-        if(gp.gameState == gp.playState) {
-            drawPlayerLife();
-        }
+        drawPlayerLife();
+//        if(gp.gameState == gp.playState) {
+//            drawPlayerLife();
+//        }
         if(gp.gameState == gp.pauseState) {
         	drawPlayerLife();
             drawPauseScreen();

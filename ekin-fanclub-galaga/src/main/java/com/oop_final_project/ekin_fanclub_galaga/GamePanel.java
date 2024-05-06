@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -113,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable{
 		});
 
 		}
+	
 
 	public void setupGame() {
 		aSetter.setObject();
@@ -120,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start();
 		aSetter.setHordeEnemy();
-		
+
 	}
 	
 	public void StartGameThread() { //This might need to be deleted, unused
@@ -128,6 +130,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start(); 
 	}
+
 
 	@Override
 	public void run() {	
@@ -150,7 +153,8 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 				Thread.sleep((long)remainingTime);
 				
-				nextDrawTime += interval;	
+				nextDrawTime += interval;
+				
 				
 			} catch(InterruptedException e) {
 				e.printStackTrace();
@@ -158,18 +162,25 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		}
 	}
-
+	
+	
+	
 	public void update() {
+
 		if(gameState == playState) {
            player.update();
+           checkMonsterCollision(player);
 		}
+		 if(gameState == pauseState) {
+
+		 }
 	}
 	
 	public void paintComponent(Graphics g) {	
 		
 			super.paintComponent(g);
 			Graphics2D graphics = (Graphics2D)g;
-			if (gameState == playState) {
+			if (gameState == playState || gameState == pauseState) {
 				// tiles
 				tileM.draw(graphics);
 				//object
@@ -194,6 +205,7 @@ public class GamePanel extends JPanel implements Runnable{
 						
 						String currentDirection = setAction();
 						
+						
 						if(currentDirection == "right") {
 							hordeEnemyArray[i].worldX --;
 							
@@ -207,6 +219,7 @@ public class GamePanel extends JPanel implements Runnable{
 							hordeEnemyArray[i].worldX += 0;
 						}
 					}
+
 				}
 				
 				if(keyH.space) {
@@ -220,15 +233,14 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			//ui
 
-			if (gameState == titleState || gameState == pauseState) {
-
-				ui.draw(graphics);
-									
+			if (gameState == titleState || gameState == pauseState || gameState == playState) {
+				ui.draw(graphics);					
+			} 
 			if (gameState == customState) {
 				for (ColorButton button : colorButtons) {
 					button.draw(graphics);
-				}
 			}
+				
 		}
 	}
 	
@@ -240,8 +252,9 @@ public class GamePanel extends JPanel implements Runnable{
 				
 			} else if (hordeEnemyArray[(hordeEnemyArray.length) - 1].worldX == 500 || direction == null){
 				direction = "right";
-			} 
-		
+
+			}
+
 		return direction;
 		
 	}
@@ -261,5 +274,16 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		return coloredImage;
 	}
-		
+	
+	public boolean checkMonsterCollision(Player player) {
+		Rectangle playerBounds = new Rectangle(player.x, player.y, player.solidArea.width, player.solidArea.height);
+        for (int i = 0; i < hordeEnemyArray.length; i++) {
+            if (hordeEnemyArray[i] != null && playerBounds.intersects(hordeEnemyArray[i].solidArea)) {
+            	System.out.println("true");
+            	player.takeDamage(1);
+            	return true; //Collision detected
+            }
+        }
+        return false;
+	}
 }
