@@ -204,16 +204,17 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			//ui
 
-			if (gameState == titleState || gameState == pauseState) {
+				if (gameState == titleState || gameState == pauseState) {
 
-				ui.draw(graphics);
-									
-			if (gameState == customState) {
-				for (ColorButton button : colorButtons) {
-					button.draw(graphics);
+					ui.draw(graphics);
+				}		
+				if (gameState == customState) {
+					System.out.println("Should be drawing buttons");
+					for (ColorButton button : colorButtons) {
+						button.draw(graphics);
 				}
+			
 			}
-		}
 	}
 
 	
