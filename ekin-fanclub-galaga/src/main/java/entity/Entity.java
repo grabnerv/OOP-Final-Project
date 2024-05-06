@@ -16,4 +16,11 @@ public class Entity {
 	public Rectangle solidArea;
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisonON = false;
+	
+	//Character Status
+	public int maxLife;
+	public int life;
+	//These two ints will be shared by player and monsters
+	
+	
 }

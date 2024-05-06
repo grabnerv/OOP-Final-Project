@@ -110,10 +110,10 @@ public class GamePanel extends JPanel implements Runnable{
 		
 	}
 	
-	public void StartGameThread() {
+	public void StartGameThread() { //This might need to be deleted, unused
 		gameState = playState; // this will need to be reworked or removed.
 		gameThread = new Thread(this);
-		gameThread.start();
+		gameThread.start(); 
 	}
 
 
@@ -180,9 +180,9 @@ public class GamePanel extends JPanel implements Runnable{
 			//ui
 			
 		
-			if (gameState == titleState || gameState == pauseState) {
+			
 				ui.draw(graphics);
-									}
+									
 			if (gameState == customState) {
 				for (ColorButton button : colorButtons) {
 					button.draw(graphics);
