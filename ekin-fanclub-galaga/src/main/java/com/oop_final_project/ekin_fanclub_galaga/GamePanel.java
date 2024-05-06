@@ -111,7 +111,6 @@ public class GamePanel extends JPanel implements Runnable{
 		});
 
 		}
-	
 
 	public void setupGame() {
 		aSetter.setObject();
@@ -127,7 +126,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start(); 
 	}
-
 
 	@Override
 	public void run() {	
@@ -150,8 +148,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 				Thread.sleep((long)remainingTime);
 				
-				nextDrawTime += interval;
-				
+				nextDrawTime += interval;	
 				
 			} catch(InterruptedException e) {
 				e.printStackTrace();
@@ -159,24 +156,18 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		}
 	}
-	
-	
-	
-	public void update() {
 
+	public void update() {
 		if(gameState == playState) {
            player.update();
 		}
-		 if(gameState == pauseState) {
-
-		 }
 	}
 	
 	public void paintComponent(Graphics g) {	
 		
 			super.paintComponent(g);
 			Graphics2D graphics = (Graphics2D)g;
-			if (gameState == playState || gameState == pauseState) {
+			if (gameState == playState) {
 				// tiles
 				tileM.draw(graphics);
 				//object
@@ -189,8 +180,8 @@ public class GamePanel extends JPanel implements Runnable{
 				for(int i = 0; i < enemy.length; i ++) {
 					if(enemy[i] != null) {
 						enemy[i].draw(graphics, this);
-						String currentDirection = setAction();
 						
+						String currentDirection = setAction();
 						
 						if(currentDirection == "right") {
 							enemy[i].worldX --;
@@ -199,9 +190,12 @@ public class GamePanel extends JPanel implements Runnable{
 							enemy[i].worldX ++;
 							
 						}
-
+						
+						if(gameState == pauseState) {
+							currentDirection = "pause";
+							enemy[i].worldX += 0;
+						}
 					}
-
 				}
 			}
 				
@@ -217,23 +211,17 @@ public class GamePanel extends JPanel implements Runnable{
 			if (gameState == customState) {
 				for (ColorButton button : colorButtons) {
 					button.draw(graphics);
+				}
 			}
-		
-			}
-			}
-		
-		
+		}
 	}
 
 	
 	public String setAction() {
 		
 		actionTimer ++;
+		
 		if(actionTimer == 600 || direction == null) {
-			
-			Random random = new Random();
-			
-			int actionDecider = random.nextInt(100) + 1;
 			
 			if(direction == "right") {
 				direction = "left";
@@ -242,10 +230,9 @@ public class GamePanel extends JPanel implements Runnable{
 			} else if (direction == "left" || direction == null){
 				direction = "right";
 				actionTimer = 0;
-			}
-
+			} 
 		}
-
+		
 		return direction;
 		
 	}
