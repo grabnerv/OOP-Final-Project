@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -49,4 +51,28 @@ public class GamePanelTest extends GamePanel {
 		assertEquals(direction,"left");
 		
 	}
+	
+	@Test
+	public void drawTest() {
+//		gameState = playState;
+//		Graphics g = getGraphics();
+//		System.out.println(g);
+//		this.paintComponent(g);
+//		assertEquals(gameState,playState);
+//		gameState = pauseState;
+//		this.paintComponent(getGraphics());
+//		assertEquals(gameState,pauseState);
+//		gameState = titleState;
+//		this.paintComponent(getGraphics());
+//		assertEquals(gameState,titleState);
+//		g.dispose();
+	}
+	
+//	public void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//		Graphics2D graphics = (Graphics2D)g;
+//		tileM.draw(graphics);
+//		player.draw(graphics);
+//	
+//	}
 }
