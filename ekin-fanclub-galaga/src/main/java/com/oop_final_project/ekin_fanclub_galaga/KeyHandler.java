@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     GamePanel gp;
-	public boolean up, down, left, right;
+	public boolean up, down, left, right, space;
 	
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
@@ -36,6 +36,9 @@ public class KeyHandler implements KeyListener {
 				gp.gameState = gp.playState;
 			}
 		}
+		if(code == KeyEvent.VK_SPACE) {
+			space = true;
+		}
 	}
 
 	@Override
@@ -54,6 +57,9 @@ public class KeyHandler implements KeyListener {
 		}
 		if(code == KeyEvent.VK_D) {
 			right = false;
+		}
+		if(code == KeyEvent.VK_SPACE) {
+			space = false;
 		}
 	}
 

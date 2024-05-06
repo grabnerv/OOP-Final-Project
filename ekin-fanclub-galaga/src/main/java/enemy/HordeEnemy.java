@@ -29,8 +29,8 @@ public class HordeEnemy extends Entity{
 		solidArea.y = 16;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 32;
-		solidArea.height = 32; // none of these values are final and should be tweaked in debugging
+		solidArea.width = 16;
+		solidArea.height = 16; // none of these values are final and should be tweaked in debugging
 		getImage();
 		setDefaultValues();
 	

@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import entity.Entity;
 import entity.Player;
 import object.SuperObject;
+import projectile.Projectile;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -57,7 +58,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int pauseState = 2;
 	public final int customState = 3;
 	
-	public HordeEnemy enemy[] = new HordeEnemy[5];
+	public HordeEnemy hordeEnemyArray[] = new HordeEnemy[5];
+	public Projectile projectileArray[] = new Projectile[10000000];
 	
 	
 	public GamePanel() {
@@ -117,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameState = titleState; //this is what starts the game now
 		gameThread = new Thread(this);
 		gameThread.start();
-		aSetter.setEnemy();
+		aSetter.setHordeEnemy();
 		
 	}
 	
@@ -177,26 +179,40 @@ public class GamePanel extends JPanel implements Runnable{
 					}
 				}
 				
-				for(int i = 0; i < enemy.length; i ++) {
-					if(enemy[i] != null) {
-						enemy[i].draw(graphics, this);
+				for(int i = 0; i < projectileArray.length; i++ ) {
+					if(projectileArray[i] != null) {
+						if(i % 15 == 0) {
+							projectileArray[i].draw(graphics, this);
+							projectileArray[i].worldY -= 10;
+						}			
+					}
+				}
+				
+				for(int i = 0; i < hordeEnemyArray.length; i ++) {
+					if(hordeEnemyArray[i] != null) {
+						hordeEnemyArray[i].draw(graphics, this);
 						
 						String currentDirection = setAction();
 						
 						if(currentDirection == "right") {
-							enemy[i].worldX --;
+							hordeEnemyArray[i].worldX --;
 							
 						} else if(currentDirection == "left") {
-							enemy[i].worldX ++;
+							hordeEnemyArray[i].worldX ++;
 							
 						}
 						
 						if(gameState == pauseState) {
 							currentDirection = "pause";
-							enemy[i].worldX += 0;
+							hordeEnemyArray[i].worldX += 0;
 						}
 					}
 				}
+				
+				if(keyH.space) {
+					aSetter.setProjectile();
+				}
+				
 			}
 				
 				//player
@@ -215,23 +231,16 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 	}
-
+	
 	
 	public String setAction() {
-		
-		actionTimer ++;
-		
-		if(actionTimer == 600 || direction == null) {
 			
-			if(direction == "right") {
+			if(hordeEnemyArray[0].worldX == 60) {
 				direction = "left";
-				actionTimer = 0;
 				
-			} else if (direction == "left" || direction == null){
+			} else if (hordeEnemyArray[(hordeEnemyArray.length) - 1].worldX == 500 || direction == null){
 				direction = "right";
-				actionTimer = 0;
 			} 
-		}
 		
 		return direction;
 		

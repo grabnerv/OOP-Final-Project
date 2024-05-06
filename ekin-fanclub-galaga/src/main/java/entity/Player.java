@@ -37,6 +37,8 @@ public class Player extends Entity {
 	public void setDefaultValues() {
 		x = 5 * gp.panelSize + gp.panelSize / 2;
 		y = 12 * gp.panelSize;
+		this.worldX = x;
+		this.worldY = y;
 		speed = 4;
 		direction = "down";
 		
@@ -102,15 +104,19 @@ public class Player extends Entity {
 			switch (direction) {
 			case "up":
 				y -= speed;
+				this.worldY = y;
 				break;
 			case "down":
 				y += speed;
+				this.worldY = y;
 				break;
 			case "left":
 				x -= speed;
+				this.worldX = x;
 				break;
 			case "right":
 				x += speed;
+				this.worldX = x;
 				break;
 			}
 		}
