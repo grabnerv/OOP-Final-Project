@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 
 import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
 
+/**
+ * Entity class is extended to several other classes, such as Player and HordeEnemy.
+ */
 public class Entity {
 
 	GamePanel gp;

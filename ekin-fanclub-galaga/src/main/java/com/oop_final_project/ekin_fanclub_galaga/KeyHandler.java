@@ -3,14 +3,26 @@ package com.oop_final_project.ekin_fanclub_galaga;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
+/**
+ * Handles associating keyboard button with in-game functionality
+ */
 public class KeyHandler implements KeyListener {
     GamePanel gp;
 	public boolean up, down, left, right, space;
 	
+	/**
+	 * Initiates a new KeyHandler
+	 * @param gp current instance of game
+	 */
 	public KeyHandler(GamePanel gp) {
 		this.gp = gp;
 	}
 
+	/**
+	 * Detects when a key is presses
+	 * @param event key being pressed
+	 */
 	@Override
 	public void keyPressed(KeyEvent event) {
 		
@@ -40,7 +52,11 @@ public class KeyHandler implements KeyListener {
 			space = true;
 		}
 	}
-
+	
+	/**
+	 * Detects when a key is released
+	 * @param event key being pressed
+	 */
 	@Override
 	public void keyReleased(KeyEvent event) {
 		
@@ -63,6 +79,9 @@ public class KeyHandler implements KeyListener {
 		}
 	}
 
+	/**
+	 * Unused, but necessary for KeyHandler
+	 */
 	@Override
 	public void keyTyped(KeyEvent event) {
 		// TODO Auto-generated method stub

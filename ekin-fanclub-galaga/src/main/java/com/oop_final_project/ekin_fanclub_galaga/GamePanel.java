@@ -25,6 +25,11 @@ import object.SuperObject;
 import projectile.Projectile;
 import tile.TileManager;
 
+/**
+ * Game panel uses JPanel and implements Runnable
+ * Very large class, used for rendering the game and updating everything each frame.
+ * Also handles setting the game menu.
+ */
 public class GamePanel extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = 1L;
@@ -115,7 +120,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 		}
 	
-
+	/**
+	 * Setup game starts the game thread and called aSetter.java to set objects and enemies
+	 * into their respective arrays.
+	 */
 	public void setupGame() {
 		aSetter.setObject();
 		gameState = titleState; //this is what starts the game now
@@ -131,7 +139,9 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start(); 
 	}
 
-
+	/**
+	 * Method that handles frame rendering
+	 */
 	@Override
 	public void run() {	
 		
@@ -163,8 +173,10 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 	
-	
-	
+
+	/**
+	 * Checks for collisions and that the game is running.
+	 */
 	public void update() {
 
 		if(gameState == playState) {
@@ -176,6 +188,10 @@ public class GamePanel extends JPanel implements Runnable{
 		 }
 	}
 	
+	/**
+	 * Function that handles the rendering of all enemy, projectile, and player movements,
+	 * as well as pausing the game when P is clicked.
+	 */
 	public void paintComponent(Graphics g) {	
 		
 			super.paintComponent(g);
@@ -244,7 +260,9 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 	
-	
+	/**
+	 * Sets the direction of enemy movement based off of their X location.
+	 */
 	public String setAction() {
 			
 			if(hordeEnemyArray[0].worldX == 60) {
@@ -259,7 +277,11 @@ public class GamePanel extends JPanel implements Runnable{
 		
 	}
 
-
+	/**
+	 * Changes the color of the ship
+	 * @param originalImage original look of ship
+	 * @param newColor color to be set on the ship
+	 */
 	public BufferedImage colorizeShip(BufferedImage originalImage, Color newColor) {
 		int width = originalImage.getWidth();
 		int height = originalImage.getHeight();
@@ -275,6 +297,10 @@ public class GamePanel extends JPanel implements Runnable{
 		return coloredImage;
 	}
 	
+	/**
+	 * Checks for enemy collisions with player
+	 * @param player current instance of player ship
+	 */
 	public boolean checkMonsterCollision(Player player) {
 		Rectangle playerBounds = new Rectangle(player.x, player.y, player.solidArea.width, player.solidArea.height);
         for (int i = 0; i < hordeEnemyArray.length; i++) {

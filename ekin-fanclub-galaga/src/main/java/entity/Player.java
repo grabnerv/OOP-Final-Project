@@ -12,12 +12,21 @@ import com.oop_final_project.ekin_fanclub_galaga.GamePanel;
 import com.oop_final_project.ekin_fanclub_galaga.KeyHandler;
 import com.oop_final_project.ekin_fanclub_galaga.UtilityTool;
 
+
+/**
+ * This is a class representing a Player.
+ */
 public class Player extends Entity {
 
 	GamePanel gp;
 	KeyHandler keyH;
 
 
+	/**
+	 * This is the player constructor.
+	 * @param gp the current Game Panel (i.e. the game's UI)
+	 * @param keyH the keyHandler for the player.
+	 */
 	public Player(GamePanel gp, KeyHandler keyH) {
 		super(gp);
 		this.gp = gp;
@@ -31,6 +40,10 @@ public class Player extends Entity {
 		solidArea.width = 32;
 		solidArea.height = 32; // none of these values are final and should be tweaked in debugging
 
+		/**
+		 * Sets default values
+		 * Gets and sets player image (spaceship).
+		 */
 		setDefaultValues();
 		getPlayerImage();
 	}
@@ -49,13 +62,19 @@ public class Player extends Entity {
 		
 		
 	}
-
+	/**
+	 * Simple function that gets the player image
+	 */
 	public void getPlayerImage() {
 		up1 = setup("galaga_v2");
 		down1 = setup("galaga_v2");
 		explode = setup("galaga_v2");
 	}
 
+	/**
+	 * Scales image and returns it as a BufferedImage
+	 * @param imageName the image name
+	 */
 	public BufferedImage setup(String imageName) {
 		UtilityTool uTool = new UtilityTool();
 		BufferedImage image = null;
@@ -79,6 +98,9 @@ public class Player extends Entity {
 	}
 
 
+	/**
+	 * Manages player movement via key handler
+	 */
 	public void update() {
 		//this if is new might have to delete
 		if (gp.gameState == gp.playState) {
@@ -142,7 +164,11 @@ public class Player extends Entity {
 			spriteCounter = 0;
 		}
 	}
-
+	
+	/**
+	 * Pick up object is used for picking up an object when the player runs into it
+	 * @param i used for getting the index of the object array
+	 */
 	public void pickUpObject(int i) { // I don't think this is necessary
 
 		if (i != 999) {
@@ -158,10 +184,12 @@ public class Player extends Entity {
 			}
 		}
 	}
-
+	
+	/**
+	 * Draws the player ship
+	 * @param graphics is the current instance of the game graphics
+	 */
 	public void draw(Graphics2D graphics) {
-//		graphics.setColor(Color.white);
-//		graphics.fillRect(x, y, gp.panelSize, gp.panelSize);
 
 		BufferedImage image = null;
 		if (direction == "up") {

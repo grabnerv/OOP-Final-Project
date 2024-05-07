@@ -4,6 +4,9 @@ import enemy.HordeEnemy;
 import object.OBJ_Key;
 import projectile.Projectile;
 
+/**
+ * Class for handling the arrays of objects, enemies, and projectiles
+ */
 public class AssetSetter {
 
 	GamePanel gp;
@@ -13,6 +16,9 @@ public class AssetSetter {
 		this.gp = gp;
 	}
 	
+	/**
+	 * Manages array of objects
+	 */
 	public void setObject() {
 		
 		gp.obj[0] = new OBJ_Key(gp);
@@ -23,6 +29,10 @@ public class AssetSetter {
 //		gp.obj[1].worldX = 5* gp.panelSize;
 //		gp.obj[1].worldY = 2* gp.panelSize;
 	}
+	
+	/**
+	 * Manages array of enemies
+	 */
 	public void setHordeEnemy() {
 		gp.hordeEnemyArray[0] = new HordeEnemy(gp);
 		gp.hordeEnemyArray[0].worldX = gp.panelSize * 10;
@@ -45,6 +55,9 @@ public class AssetSetter {
 		gp.hordeEnemyArray[4].worldY = gp.panelSize * 7;
 	}
 	
+	/**
+	 * Manages array of projectiles
+	 */
 	public void setProjectile() {
 		gp.projectileArray[projectileNumber] = new Projectile(gp);
 		gp.projectileArray[projectileNumber].worldX = gp.player.worldX;

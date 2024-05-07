@@ -12,6 +12,9 @@ import com.Button;
 import object.OBJ_Heart;
 import object.SuperObject;
 
+/**
+ * Manages all UI elements
+ */
 public class UI {
 
     GamePanel gp;
@@ -30,6 +33,10 @@ public class UI {
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("0.00");
 
+    /**
+	 * UI constructor
+	 * @param gp current instance of game
+	 */
     public UI(GamePanel gp) {
         this.gp =gp;
 
@@ -48,11 +55,19 @@ public class UI {
         
     }
 
-
+    /**
+	 * Shows a message
+	 * @param text to be shown
+	 */
     public void showMessage(String text) {
         message = text;
         messageOn = true;
     }
+    
+    /**
+	 * General draw function
+	 * @param g2 current instance of graphics for game
+	 */
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
@@ -97,6 +112,10 @@ public class UI {
     		 x += gp.panelSize;
     	 }
     }
+    
+    /**
+	 * Draws the title screem
+	 */
     public void drawTitleScreen() {
         String title = "Galaga Game"; 
         g2.setFont(arial_80B); // Set the font to something larger for the title
@@ -115,6 +134,10 @@ public class UI {
         }
         
     } 
+    
+    /**
+	 * Draws the pause screen
+	 */
     public void drawPauseScreen() {
 
         String text = "PAUSED";
@@ -139,6 +162,10 @@ public class UI {
 
 
     }
+    
+    /**
+	 * Used for centering text based off of screen size
+	 */
       public int getXforCenteredText(String text) {
 
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
